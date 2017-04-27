@@ -164,12 +164,11 @@ btnUnir.addEventListener("click", function()
     {
         if(t.checked)
         {
-            console.log("aaa");
+            //uni alfabeto ao alfabeto merged          
             merged = mergeLang(merged, l[t.value]);
         }
-        console.log(l[t.value]);
-    });
-    console.log(merged);
+        delete l[t.value];        
+    });    
     l.push(merged);
 
     updateCheckbox();
