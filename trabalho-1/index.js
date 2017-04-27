@@ -171,5 +171,7 @@ btnUnir.addEventListener("click", function()
     });
     console.log(merged);
     l.push(merged);
+
+    updateCheckbox();
 });
 
