@@ -1,0 +1,81 @@
+TRABALHO 1
+Implementar computacionalmente, em linguagem acordada com o professor,
+um programa que seja capaz de:
+a) (Pontuação: 2,5) Aceitar, como entrada fornecida pelo usuário, alfabetos
+formatados segundo formalismo da teoria de conjuntos, isto é, cada
+símbolo deve ser separado por uma vírgula e devem estar dentro de
+chaves. Os símbolos aceitos pelo programa devem ser somente letras e
+dígitos numéricos. Não é permitido símbolos repetidos no alfabeto.
+Espaços devem permitidos como entrada, mas devem ser ignorados, ou
+seja, não são símbolos do alfabeto.
+Exemplos:
+1) {a,b,c}
+2) {0,1}
+3) { a , b , 0 , 1 }
+b) (Pontuação: 2,5) Realizar união dos alfabetos entrados pelo usuário. O
+Resultado da união não pode ter símbolos repetidos.
+c) (Pontuação: 2,5) Verificar sobre quais alfabetos, dentre os entrados pelo
+usuário, uma sequência de símbolos, também fornecida pelo usuário, é
+palavra.
+d) (Pontuação: 2,5) Determinar os prefixos, sufixos e subpalavras de uma
+palavra. O programa deve: eliminar prefixos repetidos; eliminar sufixos
+repetidos; eliminar supalavras repetidas. Utilize o símbolo representado
+por 136 do código ASCII para representar a palavra vazia.
+Abaixo está o screenshot de um exemplo de programa (disponível no moodle)
+que atende a todos os requisitos deste trabalho, que deve ser apresentado no
+final do semestre
+
+
+
+
+
+TRABALHO 2
+Implementar computacionalmente, em linguagem acordada com o professor, um
+programa que reconheça a linguagem denotada pela linguagem regular:
+b(a+b)b+(a+b)bb(a+b)+(a+b)(a+b)b(&+(a+b)*b)(a+b)(a+b)
+Observação: o símbolo ‘&’ é a palavra vazia. Foi utilizado este símbolo na expressão regular
+anterior para que possa ser utilizada na “Aplicação que converte expressão regular em AFD”,
+disponibilizada no moodle, uma vez que esta aplicação não aceita o símbolo ε. Utilize essa
+aplicação para gerar o AFD a ser implementado.
+Para tanto, você deve projetar o AFD da linguagem, que deverá sem apresentado
+no programa ou em arquivo pdf. Em seguida, implementar em código-fonte a
+função de transição do AFD e a função de transição estendida.
+Definimos δ, função de transição estendida, por indução sobre o comprimento
+da palavra de entrada.
+• BASE: δ(q,ε)=q
+Isto é, se estamos no estado q e lemos nenhuma entrada, então ainda
+continuamos no estado q.
+• INDUÇÃO: Suponha que w é uma palavra da forma xa, ou seja, a é o
+último símbolo de w, e x é a palavra que consiste em tudo, menos o último
+símbolo. Por exemplo, w=1101 é desmembrado em x=110 e a=1. Assim, o
+passo de indução é:
+δ(q,w) = δ(δ(q,x),a)
+
+
+TRABALHO 4
+Implementar computacionalmente, em linguagem acordada com o professor, um
+programa que reconheça a linguagem denotada pela linguagem regular:
+(a+b)*a(a+b)(a+b)
+Para tanto, você deve projetar o AFN da linguagem, que deverá sem apresentado
+no programa ou em arquivo pdf. Em seguida, implementar em código-fonte a
+função de transição do AFN e a função de transição estendida.
+Definimos δ, função de transição estendida, por indução sobre o comprimento
+da palavra de entrada.
+• BASE: δ(q,ε)=q
+Isto é, se estamos no estado q e lemos nenhuma entrada, então ainda
+continuamos no estado q.
+• INDUÇÃO: Suponha que w é uma palavra da forma xa, ou seja, a é o
+último símbolo de w, e x é a palavra que consiste em tudo, menos o último
+símbolo. Por exemplo, w=1101 é desmembrado em x=110 e a=1. Assim, o
+passo de indução é:
+δ(q,w) = δ(δ(q,x),a)
+No entanto, lembre-se que em AFN o retorno de uma função de transição
+δ é um conjunto de estados. Por isso, considere que δ(q,w)={p1,p2,…,pk}.
+Assim,
+⋃ (𝑝𝑖
+, 𝑎) = {𝑟1, 𝑟2, … , 𝑟𝑘}
+𝑘
+𝑖=1
+Então, (q,w)={𝑟1, 𝑟2, … , 𝑟𝑘}. De modo menos formal, calculamos (q,w)
+calculando primeiro (q,x) e depois seguinto todas as transições de
+qualquer destes estados que seja rotulada por a.
