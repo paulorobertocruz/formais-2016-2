@@ -1,3 +1,4 @@
+
 function isFromLang(palavra, linguagem)
 {
 
@@ -107,9 +108,20 @@ alpha = "abcdefghijklmnopkrstuvxywz0123456789,}{ ";
 
 l = []
 
+function updateCheckbox()
+{
+
+    divListaLg.innerHTML = "";
+
+    l.forEach(function(t, index)
+    {            
+        divListaLg.innerHTML += "<input name='lg' type='checkbox' value='"+ index +"'/>" + t.toString() + "<br/>";
+    });
+}
+
 btnInserir.addEventListener("click", function()
 {
-    console.log("_________");    
+    // console.log("_________");    
     if ( transition(0, inputTexto.value[0], inputTexto.value, states) )
     {        
         var alfabeto = inputTexto.value.replace("{", "").replace("}", "").replace(" ", "").split(",");
@@ -126,12 +138,8 @@ btnInserir.addEventListener("click", function()
 
         l.push(newAlfa);
 
+        updateCheckbox();
         
-        divListaLg.innerHTML = "";
-        l.forEach(function(t, index)
-        {            
-            divListaLg.innerHTML += "<input name='lg' type='checkbox' value='"+ index +"'/>" + t.toString() + "<br/>";
-        });
     }
     else
     {
@@ -145,6 +153,7 @@ btnInserir.addEventListener("click", function()
  junta dois alfabetos em um so e descarta os dois que foram unidos adicionando o total na lista
  incompleto 
 */
+
 btnUnir.addEventListener("click", function()
 {
     var inputs = document.getElementsByName("lg");
