@@ -167,8 +167,10 @@ btnUnir.addEventListener("click", function()
             //uni alfabeto ao alfabeto merged          
             merged = mergeLang(merged, l[t.value]);
         }
+        //retira o alfabeto da lista global
         delete l[t.value];        
-    });    
+    });
+    //
     l.push(merged);
 
     updateCheckbox();
