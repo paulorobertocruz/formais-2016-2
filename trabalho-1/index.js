@@ -171,8 +171,10 @@ btnUnir.addEventListener("click", function()
         }
                 
     });
+
     //
-    l.push(merged);
+    if(merged.length > 0)
+        l.push(merged);
 
     updateCheckbox();
 });
