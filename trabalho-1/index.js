@@ -6,7 +6,7 @@ function isFromLang(palavra, linguagem)
 
 function updateLangList()
 {
-    
+
 }
 
 function mergeLang(l1, l2)
@@ -27,11 +27,11 @@ function consoleLog(msg)
 }
 
 function transition(currentState, currentChar, strip, states)
-{            
+{
     if( typeof currentChar != "undefined")
     {
         if(alpha.indexOf(currentChar) <= -1 )
-        {        
+        {
             return false;
         }
 
@@ -41,14 +41,14 @@ function transition(currentState, currentChar, strip, states)
         }
 
         if(strip.length >= 1)
-        {            
-            return transition(states[currentState][currentChar], strip[1], strip.slice(1), states);                            
+        {
+            return transition(states[currentState][currentChar], strip[1], strip.slice(1), states);
         }
     }
     else
-    {        
+    {
         return states[currentState]["final"];
-    }    
+    }
 }
 
 //afd para reconhecimento da notação {s*(,s)*} ?
@@ -114,32 +114,32 @@ function updateCheckbox()
     divListaLg.innerHTML = "";
 
     l.forEach(function(t, index)
-    {            
+    {
         divListaLg.innerHTML += "<input name='lg' type='checkbox' value='"+ index +"'/>" + t.toString() + "<br/>";
     });
 }
 
 btnInserir.addEventListener("click", function()
 {
-    // console.log("_________");    
+    // console.log("_________");
     if ( transition(0, inputTexto.value[0], inputTexto.value, states) )
-    {        
+    {
         var alfabeto = inputTexto.value.replace("{", "").replace("}", "").replace(" ", "").split(",");
-        
+
         var newAlfa = [];
 
         alfabeto.forEach(function (t, index)
-        {            
+        {
             if(newAlfa.indexOf(t) <= -1)
             {
                 newAlfa.push(t);
-            }            
+            }
         });
 
         l.push(newAlfa);
 
         updateCheckbox();
-        
+
     }
     else
     {
@@ -151,25 +151,25 @@ btnInserir.addEventListener("click", function()
 
 /*
  junta dois alfabetos em um so e descarta os dois que foram unidos adicionando o total na lista
- incompleto 
+ incompleto
 */
 
 btnUnir.addEventListener("click", function()
 {
     var inputs = document.getElementsByName("lg");
-    
+
     var merged = [];
 
     inputs.forEach(function(t, index)
     {
         if(t.checked)
         {
-            //uni alfabeto ao alfabeto merged          
+            //uni alfabeto ao alfabeto merged
             merged = mergeLang(merged, l[t.value]);
             //retira o alfabeto da lista global
             delete l[t.value];
         }
-                
+
     });
 
     //
@@ -178,4 +178,3 @@ btnUnir.addEventListener("click", function()
 
     updateCheckbox();
 });
-
