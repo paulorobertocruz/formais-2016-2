@@ -139,6 +139,7 @@ function getAlfabeto(entrada){
 
 
 var btnCarregar = document.getElementById("btn-carregar");
+var btnCarregarAutomato = document.getElementById("btn-carregar-automato");
 
 var inputAlfabeto = document.getElementById("input-alfabeto");
 var inputQtEstado = document.getElementById("input-qtEstado");
