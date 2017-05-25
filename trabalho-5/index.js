@@ -1,25 +1,34 @@
 
 
-function criaAutomato(alfabeto, qtEstados, inicial){
+function criaAutomato(alfabeto, qtEstados, inicial, finais){
 
+  finais = finais.split(",");
+  console.log(finais);
   var states = {}
 
   states["inicial"] = inicial;
 
-  var alf = {};
-
-  for(var sim = 0; sim < alfabeto.length; sim++)
-  {
-    alf[alfabeto[sim]] = i;
-  }
-
-  alf["final"] = false;
 
   for(var i = 0; i < qtEstados; i++)
   {
+
+    var alf = {};
+
+    for(var sim = 0; sim < alfabeto.length; sim++)
+    {
+      alf[alfabeto[sim]] = i;
+    }
+
+    alf["final"] = false;
+
     states[i] = alf;
   }
 
+  for(f in finais)
+  {
+      states[parseInt(finais[f])]["final"] = true;
+      console.log(finais[f]);
+  }
   return states;
 }
 
@@ -134,6 +143,7 @@ var btnCarregar = document.getElementById("btn-carregar");
 var inputAlfabeto = document.getElementById("input-alfabeto");
 var inputQtEstado = document.getElementById("input-qtEstado");
 var inputEstadoInicial = document.getElementById("input-estadoInicial");
+var inputEstadosFinais = document.getElementById("input-estadosFinais");
 var inputEntrada = document.getElementById("input-entrada");
 
 var tableHeader = document.getElementById("tb_header");
@@ -141,12 +151,15 @@ var tableBody = document.getElementById("tb_body");
 
 //gera tabela html para adicionar os estados do automato
 btnCarregar.addEventListener("click", function(){
-
+  var estadosFinais = inputEstadosFinais.value;
+  var estadoInicial = inputEstadoInicial.value;
   var alfabeto = getAlfabeto(inputAlfabeto.value);
   var qtEstado = parseInt(inputQtEstado.value);
+  var automato = criaAutomato(alfabeto, qtEstado, estadoInicial, estadosFinais);
 
   console.log("tabela:" + qtEstado + "X" + alfabeto.length);
   console.log(alfabeto);
+  console.log(automato);
 
   //update cabeçalho da tabela
   var str = "<th>#</th>";
@@ -161,7 +174,25 @@ btnCarregar.addEventListener("click", function(){
   tableBody.innerHTML = "";
   for(var i =0; i< qtEstado; i++){
     str = "<tr>";
-    str += "<td>"+ i +"</td>";
+
+
+    if(automato["inicial"] == i)
+    {
+      //se inicial
+      str += "<td>i->"+ i +"</td>";
+    }
+    else if(automato[i]["final"] == true)
+    {
+      // se final
+      str += "<td>*"+ i +"</td>";
+    }
+    else
+    {
+      //outros
+      str += "<td>"+ i +"</td>";
+    }
+
+
     for(a in alfabeto){
       str += "<th><input class='max_length' name='"+ i +"_"+ alfabeto[a] +"'></th>";
     }
