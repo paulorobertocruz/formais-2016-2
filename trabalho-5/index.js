@@ -234,23 +234,42 @@ btnCarregarAutomato.addEventListener("click",function(){
 
     updateAutomato(info[0], info[1], parseInt(inputs[i].value) );
 
-    console.log(name);
+    // console.log(name);
+
   }
+
   console.log(automato);
 
 });
 
+btnExecutar.addEventListener("click", function(){
+
+  var resultado = transition(automato["inicial"], inputEntrada.value[0], inputEntrada.value, automato);
+
+  if(resultado){
+    console.log("reconhecido");
+  }else {
+    console.log("nao reconhecido");
+  }
+
+});
 
 
-function transitionNotacao(currentState, currentChar, strip, automato)
+function transition(currentState, currentChar, strip, automato)
 {
-    // console.log("state:"+currentState);
-    // console.log("Char:"+currentChar);
+    console.log("state:"+currentState);
+    console.log("Char:"+currentChar);
+
+    //não faz parte do alfabeto
+    if( alfabeto.indexOf(currentChar) == -1){
+      return false;
+    }
+
     if( typeof currentChar != "undefined")
     {
         if(strip.length >= 1)
         {
-            return transitionNotacao(automato[currentState][currentChar], strip[1], strip.slice(1), automato);
+            return transition(automato[currentState][currentChar], strip[1], strip.slice(1), automato);
         }
     }
     else
