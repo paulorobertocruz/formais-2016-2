@@ -1,4 +1,3 @@
-
 function isFromLang(palavra, linguagem)
 {
 
@@ -101,10 +100,13 @@ var states =
 var inputTexto = document.getElementById("input-texto");
 var btnInserir = document.getElementById("btn-inserir");
 var btnUnir = document.getElementById("btn-unir");
+var btnVerificar = document.getElementById("btn-verificar");
 var divListaLg = document.getElementById("lista-lg");
 var divConsole = document.getElementById("console");
+var btnPresufix  = document.getElementById("btn-presufix");
+var inputTextoPalavra = document.getElementById("input-texto-palavra");
 
-alpha = "abcdefghijklmnopkrstuvxywz0123456789,}{ ";
+alpha = "abcdefghijklmnopqkrstuvxywz0123456789,}{ ";
 
 l = []
 
@@ -112,12 +114,62 @@ function updateCheckbox()
 {
 
     divListaLg.innerHTML = "";
-
+    console.log(l);
     l.forEach(function(t, index)
     {
         divListaLg.innerHTML += "<input name='lg' type='checkbox' value='"+ index +"'/>" + t.toString() + "<br/>";
     });
 }
+
+//sufixos e prefixos
+btnPresufix.addEventListener("click", function(){
+    var prefix = "Prefixos:\n";
+    var sufix = "Sufixos:\n";
+    var text = inputTextoPalavra.value;
+
+    for(var i = 0; i < text.length; i++){
+        prefix += text.substring(0, i+1) + "\n";
+        sufix += text.substring(text.length - i-1, text.length) + "\n";
+    }
+
+    alert(prefix + sufix);
+});
+
+//verifica em quais liguagens esta
+btnVerificar.addEventListener("click", function(){
+    console.log(l);
+    var text = inputTextoPalavra.value;
+    var linguagens = "Linguagens:\n";
+    var letraDentro = false;
+    var palavraDentro = false;
+
+    l.forEach(function(t, id){
+        //compara palavra no alfabeto
+        palavraDentro = true;
+
+        for(var i = 0; i < text.length; i++){
+            letraDentro = false;
+                for(var h = 0; h < l[id].length; h++){
+                    if(text[i] == l[id][h]){
+                        letraDentro = true;
+                        break;
+                    }
+                }
+            if(!letraDentro){
+                palavraDentro = false;
+                break;
+            }
+        }
+
+        if(palavraDentro){
+            linguagens += l[id] + "\n";
+        }
+    });
+
+    alert(linguagens);
+
+});
+
 
 btnInserir.addEventListener("click", function()
 {
@@ -159,6 +211,7 @@ btnUnir.addEventListener("click", function()
     var inputs = document.getElementsByName("lg");
 
     var merged = [];
+    var remover = [];
 
     inputs.forEach(function(t, index)
     {
@@ -173,8 +226,17 @@ btnUnir.addEventListener("click", function()
     });
 
     //
-    if(merged.length > 0)
+    if(merged.length > 0){
         l.push(merged);
+
+        var nl = [];
+
+        l.forEach(function(t, id){
+            nl.push(t);
+        });
+
+        l = nl;
+    }
 
     updateCheckbox();
 });
