@@ -1,13 +1,3 @@
-function isFromLang(palavra, linguagem)
-{
-
-}
-
-function updateLangList()
-{
-
-}
-
 function mergeLang(l1, l2)
 {
     l2.forEach(function(t, index){
@@ -125,6 +115,8 @@ function updateCheckbox()
 btnPresufix.addEventListener("click", function(){
     var prefix = "Prefixos:\n";
     var sufix = "Sufixos:\n";
+    var subpalavra = "Subpalavras:\n";
+
     var text = inputTextoPalavra.value;
 
     for(var i = 0; i < text.length; i++){
@@ -132,7 +124,17 @@ btnPresufix.addEventListener("click", function(){
         sufix += text.substring(text.length - i-1, text.length) + "\n";
     }
 
-    alert(prefix + sufix);
+    //pega subpalavras
+    for(var j = 1; j <= text.length; j++ ){
+
+      for(var i = 0; i < text.length; i++){
+        if(j+i > text.length)
+          break;
+        subpalavra += text.substring(i, i+j) + "\n";
+      }
+    }
+
+    alert(prefix + sufix + subpalavra);
 });
 
 //verifica em quais liguagens esta
