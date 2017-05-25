@@ -130,7 +130,7 @@ function getAlfabeto(entrada){
   }
   else
   {
-      console.log("nao reconhecido, erro de sintaxe");
+      console.log("notacao:nao reconhecido, erro de sintaxe");
       return false;
   }
 }
@@ -140,6 +140,7 @@ function getAlfabeto(entrada){
 
 var btnCarregar = document.getElementById("btn-carregar");
 var btnCarregarAutomato = document.getElementById("btn-carregar-automato");
+var btnExecutar = document.getElementById("btn-executar");
 
 var inputAlfabeto = document.getElementById("input-alfabeto");
 var inputQtEstado = document.getElementById("input-qtEstado");
@@ -150,13 +151,19 @@ var inputEntrada = document.getElementById("input-entrada");
 var tableHeader = document.getElementById("tb_header");
 var tableBody = document.getElementById("tb_body");
 
+var estadosFinais;
+var estadoInicial;
+var alfabeto;
+var qtEstado;
+var automato;
+
 //gera tabela html para adicionar os estados do automato
 btnCarregar.addEventListener("click", function(){
-  var estadosFinais = inputEstadosFinais.value;
-  var estadoInicial = inputEstadoInicial.value;
-  var alfabeto = getAlfabeto(inputAlfabeto.value);
-  var qtEstado = parseInt(inputQtEstado.value);
-  var automato = criaAutomato(alfabeto, qtEstado, estadoInicial, estadosFinais);
+  estadosFinais = inputEstadosFinais.value;
+  estadoInicial = inputEstadoInicial.value;
+  alfabeto = getAlfabeto(inputAlfabeto.value);
+  qtEstado = parseInt(inputQtEstado.value);
+  automato = criaAutomato(alfabeto, qtEstado, estadoInicial, estadosFinais);
 
   console.log("tabela:" + qtEstado + "X" + alfabeto.length);
   console.log(alfabeto);
@@ -195,7 +202,7 @@ btnCarregar.addEventListener("click", function(){
 
 
     for(a in alfabeto){
-      str += "<th><input class='max_length' name='"+ i +"_"+ alfabeto[a] +"'></th>";
+      str += "<th><input class='max_length input_estados' name='"+ i +"_"+ alfabeto[a] +"'></th>";
     }
     str += "</tr>";
     tableBody.innerHTML += str;
@@ -205,12 +212,52 @@ btnCarregar.addEventListener("click", function(){
 });
 
 
+// var estadosFinais;
+// var estadoInicial;
+// var alfabeto;
+// var qtEstado;
+// var automato;
+
+function updateAutomato(estado, simbolo, valor){
+  automato[estado][simbolo] = valor;
+}
+
+//carregar
+btnCarregarAutomato.addEventListener("click",function(){
+  var inputs = document.getElementsByClassName("input_estados");
+  var name;
+  var info;
+  for(var i = 0; i < inputs.length; i++){
+    name = inputs[i].getAttribute("name");
+
+    info = name.split("_");
+
+    updateAutomato(info[0], info[1], parseInt(inputs[i].value) );
+
+    console.log(name);
+  }
+  console.log(automato);
+
+});
 
 
 
-
-
-
+function transitionNotacao(currentState, currentChar, strip, automato)
+{
+    // console.log("state:"+currentState);
+    // console.log("Char:"+currentChar);
+    if( typeof currentChar != "undefined")
+    {
+        if(strip.length >= 1)
+        {
+            return transitionNotacao(automato[currentState][currentChar], strip[1], strip.slice(1), automato);
+        }
+    }
+    else
+    {
+        return automato[currentState]["final"];
+    }
+}
 
 
 
