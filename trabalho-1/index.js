@@ -135,6 +135,7 @@ btnPresufix.addEventListener("click", function(){
     }
 
     alert(prefix + sufix + subpalavra);
+    console.log(prefix + sufix + subpalavra);
 });
 
 //verifica em quais liguagens esta
@@ -172,6 +173,13 @@ btnVerificar.addEventListener("click", function(){
 
 });
 
+String.prototype.allReplace = function(obj) {
+    var retStr = this;
+    for (var x in obj) {
+        retStr = retStr.replace(new RegExp(x, 'g'), obj[x]);
+    }
+    return retStr;
+};
 
 btnInserir.addEventListener("click", function()
 {
@@ -186,7 +194,15 @@ btnInserir.addEventListener("click", function()
         {
             if(newAlfa.indexOf(t) <= -1)
             {
-                newAlfa.push(t);
+              t.allReplace(" ", "");
+              console.log(t.length);
+              for(var k = 0; k < t.length; k++)
+              {
+                if(t[k] != " "){
+                    newAlfa.push(t[k]);
+                }
+              }
+
             }
         });
 
